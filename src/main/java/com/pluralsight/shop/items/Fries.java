@@ -11,8 +11,4 @@ public class Fries {
         return price;
     }
 
-
-    public double getValue(String size) {
-        return 0;
-    }
 }
