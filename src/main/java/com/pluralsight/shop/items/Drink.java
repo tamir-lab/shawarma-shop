@@ -1,20 +1,20 @@
 package com.pluralsight.shop.items;
 
 public class Drink {
-    private String flavor;
+    private String kind;
     private String size;
 
     public Drink(String flavor, String size) {
-        this.flavor = flavor;
+        this.kind = flavor;
         this.size = size;
     }
 
-    public String getFlavor() {
-        return flavor;
+    public String getKind() {
+        return kind;
     }
 
-    public void setFlavor(String flavor) {
-        this.flavor = flavor;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
     public String getSize() {
@@ -26,7 +26,8 @@ public class Drink {
     }
 
 
-    public double getValue(String size) {
+
+    public double getValue() {
         switch (size) {
             case "small" -> {return 2.0;}
             case "medium" -> {return 2.5;}
@@ -35,5 +36,10 @@ public class Drink {
                 return 0;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return kind + " - " + size + "\n";
     }
 }

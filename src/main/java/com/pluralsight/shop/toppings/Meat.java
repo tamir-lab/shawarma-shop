@@ -10,4 +10,6 @@ public class Meat extends Protein {
     public double getValue(String size) {
         return 0;
     }
+
+
 }

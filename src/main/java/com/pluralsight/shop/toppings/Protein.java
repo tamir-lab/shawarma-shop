@@ -17,4 +17,10 @@ public abstract class Protein extends Topping{
     }
 
     public abstract double getValue(String size);
+
+    @Override
+    public String toString() {
+        String extra = isExtra ? " (extra)": "";
+        return getKind()  + extra + "\n";
+    }
 }

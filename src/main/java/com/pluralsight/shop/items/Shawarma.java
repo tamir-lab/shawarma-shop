@@ -5,6 +5,7 @@ import com.pluralsight.shop.toppings.Topping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Shawarma {
     private String breadType;
@@ -51,19 +52,25 @@ public class Shawarma {
         this.toppings = toppings;
     }
     public void addTopping(Topping topping) {
-        //TODO define the method "question -> add"
-
         toppings.add(topping);
     }
 
     @Override
     public String toString() {
-        return "Shawarma{" +
-                "breadType='" + breadType + '\'' +
-                ", size='" + size + '\'' +
-                ", isToasted=" + isToasted +
-                ", toppings=" + toppings +
-                '}';
+        String toastDisplay = isToasted ? " - Toasted": "";
+        List<String> toppingPrintable = toppings.stream()
+                .map(Topping::toString).toList();
+        String toppingString = toppingPrintable.stream().collect(Collectors.joining("\n• ", "• ", ""));
+        String printable = String.format("""
+                Shawarma
+                   Toppings:
+                %s
+                Subtotal: $%.2f
+
+                """, toppingString,getValue(size));
+        return "Shawarma " + size + " - " + breadType + toastDisplay + "\n" +
+                "Toppings:\n" + toppingString + getValue(size)
+                ;
     }
 
     public double getValue(String size) {

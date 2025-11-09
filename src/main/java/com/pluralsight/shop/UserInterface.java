@@ -35,8 +35,7 @@ public class UserInterface {
 
     public void orderScreen(Scanner scanner) {
         Order order = new Order("awe", LocalDateTime.now().toString());
-        List<Drink> drinks = new ArrayList<>();
-        List<Fries> fries = new ArrayList<>();
+
         boolean running = true;
         while(running){
             System.out.println("=".repeat(30));
@@ -50,9 +49,9 @@ public class UserInterface {
             String secondInput = scanner.nextLine();
             switch(secondInput) {
                 case "1" -> addShawarma(scanner,order);
-                case "2" -> addDrink(scanner,drinks);
-                case "3" -> addChips(scanner,fries);
-                case "4" -> checkout(scanner);
+                case "2" -> addDrink(scanner,order);
+                case "3" -> addFries(scanner,order);
+                case "4" -> checkout(scanner,order);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option.");
             }
@@ -505,130 +504,127 @@ public class UserInterface {
         return isToasted;
     }
 
-
-    private void addDrink(Scanner scanner, List<Drink> drinks) {
-        System.out.println("Would you like to add a drink?" +
-                "1 - Yes" +
-                "2 - No, continue to fries"
-                //+ "0 - Back to OrderScreen"
+    private void addDrink(Scanner scanner, Order order) {
+        System.out.println("""
+                        Would you like to add a drink?
+                        1 - Yes
+                        2 - No, back to the Order Screen
+                        """
                 );
-        String drinkChoice = "";
-        String drinkSize = "";
-        boolean running = true;
-        while (running) {
+        String kind = "";
+        String size = "";
+        boolean gettingDrink = true;
+        while (gettingDrink) {
             String choice = scanner.nextLine().trim();
             switch (choice){
                 case "1" -> {
-                    System.out.println("""
+                    kind = addDrinkKind(scanner);
+                    size = addDrinkSize(scanner);
+                    gettingDrink = false;
+                }
+                case "2" -> gettingDrink = false;
+                default -> System.out.println("Invalid option. Please enter 1 or 2.");
+            }
+
+        }
+        order.addDrink(new Drink(kind,size));
+        }
+    
+    private String addDrinkKind(Scanner scanner) {
+        String kind = "";
+        boolean running = true;
+        System.out.println("""
                             Flavor selection:\
                             t - tea
                             s - soda
                             w - water
                             What flavor would you like?
                             """);
-                    while (running) {
-                        String sizeChoice = scanner.nextLine().trim().toLowerCase();
-                        switch (sizeChoice) {
-                            case "t" -> {
-                                drinkChoice = "tea";
-                                running = false;
-                            }
-                            case "s" -> {
-                                drinkChoice = "soda";
-                                running = false;
-                            }
-                            case "w" -> {
-                                drinkChoice = "water";
-                                running = false;
-                            }
-                            default -> System.out.println("Invalid option.");
-                        }
-                     }
-
-                }
-                case "2" -> {
+        while (running) {
+            String sizeChoice = scanner.nextLine().trim().toLowerCase();
+            switch (sizeChoice) {
+                case "t" -> {
+                    kind = "tea";
                     running = false;
                 }
-                /*case "0" -> {
+                case "s" -> {
+                    kind = "soda";
                     running = false;
-                }*/
-
-                default -> System.out.println("Invalid option. Please enter 1,2 or 0.");
+                }
+                case "w" -> {
+                    kind = "water";
+                    running = false;
+                }
+                default -> System.out.println("Invalid option.");
             }
+        }
+        return kind;
+    }
 
-            if (!drinkChoice.isEmpty()) {
-                System.out.println("""
+    private String addDrinkSize(Scanner scanner) {
+        System.out.println("""
                         What size would you like for the drink?\
                         s - small
                         m - medium
                         l - large
                         """);
-                do  {
-                    running = true;
-                    String sizeChoice = scanner.nextLine().trim().toLowerCase();
-                    switch (sizeChoice) {
-                        case "s" -> {
-                            drinkChoice = "small";
-                            running = false;
-                        }
-                        case "m" -> {
-                            drinkChoice = "medium";
-                            running = false;
-                        }
-                        case "l" -> {
-                            drinkChoice = "large";
-                            running = false;
-                        }
-                        default -> System.out.println("Invalid option.");
-                    }
-                } while (running);
-                running = true;
-
-                drinks.add(new Drink(drinkChoice,drinkSize));
-                drinkChoice = "";
-                drinkSize = "";
-                System.out.println("What other drink would you like to add?");
+        String size = "";
+        boolean choosingSize = true;
+        while (choosingSize)  {
+            String sizeChoice = scanner.nextLine().trim().toLowerCase();
+            switch (sizeChoice) {
+                case "s" -> {
+                    size = "small";
+                    choosingSize = false;
+                }
+                case "m" -> {
+                    size = "medium";
+                    choosingSize = false;
+                }
+                case "l" -> {
+                    size = "large";
+                    choosingSize = false;
+                }
+                default -> System.out.println("Invalid option.");
             }
         }
-        }
+        return size;
+    }
 
-    private void addChips(Scanner scanner, List<Fries> fries) {
-        System.out.println("Would you like to add fries?" +
-                        "1 - Yes" +
-                        "2 - No, Back to OrderScreen"
-                //+ "0 - Back to OrderScreen"
+    private void addFries(Scanner scanner, Order order) {
+        System.out.println("""
+                Would you like to add fries?
+                1 - Yes
+                2 - No, Back to OrderScreen
+                """
         );
-        boolean friesAddOn = false;
         boolean running = true;
         while (running) {
             String choice = scanner.nextLine().trim();
             switch (choice){
                 case "1" -> {
-                    friesAddOn = true;
+                    order.addFries(new Fries());
                     running = false;
                 }
                 case "2" -> {
                     running = false;
                 }
-                /*case "0" -> {
-                    running = false;
-                }*/
-
-                default -> System.out.println("Invalid option. Please enter 1,2 or 0.");
-            }
-
-            if (friesAddOn) {
-                fries.add(new Fries());
+                default -> System.out.println("Invalid option. Please enter 1 or 2.");
             }
         }
+        System.out.println("Fries added to your order!");
     }
 
     //TODO
-    private void checkout(Scanner scanner) {
+    private void checkout(Scanner scanner, Order order) {
+        System.out.println(order);
+        System.out.println("1 - Confirm and checkout the order\n" +
+                           "2 - Cancel the order");
+
     }
 
     private boolean askForExtra(Scanner scanner) {
-        System.out.print("Do you want extra for that topping? Y/N");
+        System.out.print("Do you want extra for that protein? Y/N:  ");
         boolean isExtra = false;
         boolean running = true;
         String choice;
