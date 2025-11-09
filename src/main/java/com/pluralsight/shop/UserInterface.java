@@ -1,5 +1,7 @@
 package com.pluralsight.shop;
 
+import com.pluralsight.shop.items.Drink;
+import com.pluralsight.shop.items.Fries;
 import com.pluralsight.shop.items.Shawarma;
 import com.pluralsight.shop.toppings.*;
 
@@ -33,6 +35,8 @@ public class UserInterface {
 
     public void orderScreen(Scanner scanner) {
         Order order = new Order("awe", LocalDateTime.now().toString());
+        List<Drink> drinks = new ArrayList<>();
+        List<Fries> fries = new ArrayList<>();
         boolean running = true;
         while(running){
             System.out.println("=".repeat(30));
@@ -46,8 +50,8 @@ public class UserInterface {
             String secondInput = scanner.nextLine();
             switch(secondInput) {
                 case "1" -> addShawarma(scanner,order);
-                case "2" -> addDrink(scanner);
-                case "3" -> addChips(scanner);
+                case "2" -> addDrink(scanner,drinks);
+                case "3" -> addChips(scanner,fries);
                 case "4" -> checkout(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option.");
@@ -390,7 +394,7 @@ public class UserInterface {
                 2 - Hummus with pita
                 0 - Continue to sauces
                 
-                Would you like to add a vegetable? Y/N""");
+                What side would you like to add?""");
         String sideChoice = "";
         boolean isExtra;
 
@@ -501,13 +505,122 @@ public class UserInterface {
         return isToasted;
     }
 
-    //TODO
-    private void addDrink(Scanner scanner) {
 
-    }
+    private void addDrink(Scanner scanner, List<Drink> drinks) {
+        System.out.println("Would you like to add a drink?" +
+                "1 - Yes" +
+                "2 - No, continue to fries"
+                //+ "0 - Back to OrderScreen"
+                );
+        String drinkChoice = "";
+        String drinkSize = "";
+        boolean running = true;
+        while (running) {
+            String choice = scanner.nextLine().trim();
+            switch (choice){
+                case "1" -> {
+                    System.out.println("""
+                            Flavor selection:\
+                            t - tea
+                            s - soda
+                            w - water
+                            What flavor would you like?
+                            """);
+                    while (running) {
+                        String sizeChoice = scanner.nextLine().trim().toLowerCase();
+                        switch (sizeChoice) {
+                            case "t" -> {
+                                drinkChoice = "tea";
+                                running = false;
+                            }
+                            case "s" -> {
+                                drinkChoice = "soda";
+                                running = false;
+                            }
+                            case "w" -> {
+                                drinkChoice = "water";
+                                running = false;
+                            }
+                            default -> System.out.println("Invalid option.");
+                        }
+                     }
 
-    //TODO
-    private void addChips(Scanner scanner) {
+                }
+                case "2" -> {
+                    running = false;
+                }
+                /*case "0" -> {
+                    running = false;
+                }*/
+
+                default -> System.out.println("Invalid option. Please enter 1,2 or 0.");
+            }
+
+            if (!drinkChoice.isEmpty()) {
+                System.out.println("""
+                        What size would you like for the drink?\
+                        s - small
+                        m - medium
+                        l - large
+                        """);
+                do  {
+                    running = true;
+                    String sizeChoice = scanner.nextLine().trim().toLowerCase();
+                    switch (sizeChoice) {
+                        case "s" -> {
+                            drinkChoice = "small";
+                            running = false;
+                        }
+                        case "m" -> {
+                            drinkChoice = "medium";
+                            running = false;
+                        }
+                        case "l" -> {
+                            drinkChoice = "large";
+                            running = false;
+                        }
+                        default -> System.out.println("Invalid option.");
+                    }
+                } while (running);
+                running = true;
+
+                drinks.add(new Drink(drinkChoice,drinkSize));
+                drinkChoice = "";
+                drinkSize = "";
+                System.out.println("What other drink would you like to add?");
+            }
+        }
+        }
+
+    private void addChips(Scanner scanner, List<Fries> fries) {
+        System.out.println("Would you like to add fries?" +
+                        "1 - Yes" +
+                        "2 - No, Back to OrderScreen"
+                //+ "0 - Back to OrderScreen"
+        );
+        boolean friesAddOn = false;
+        boolean running = true;
+        while (running) {
+            String choice = scanner.nextLine().trim();
+            switch (choice){
+                case "1" -> {
+                    friesAddOn = true;
+                    running = false;
+                }
+                case "2" -> {
+                    running = false;
+                }
+                /*case "0" -> {
+                    running = false;
+                }*/
+
+                default -> System.out.println("Invalid option. Please enter 1,2 or 0.");
+            }
+
+            if (friesAddOn) {
+                fries.add(new Fries());
+            }
+        }
     }
 
     //TODO
@@ -531,5 +644,9 @@ public class UserInterface {
         return isExtra;
     }
 
+    }
 
-}
+
+
+
+
