@@ -6,7 +6,7 @@ public class Cheese extends Protein{
         super(kind, isExtra);
     }
 
-    public double getValue(String size) {
+    public double getValue() {
         //TODO define pricing for the cheese
         return 0;
     }

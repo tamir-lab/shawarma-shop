@@ -5,7 +5,7 @@ import com.pluralsight.shop.items.Fries;
 import com.pluralsight.shop.items.Shawarma;
 import com.pluralsight.shop.toppings.*;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +71,9 @@ public class UserInterface {
         addAllMeats(scanner,toppingsList);
         addCheese(scanner,toppingsList);
 
-        //RAYMOND WANT THE
         otherToppings(scanner,toppingsList);
         selectSauces(scanner,toppingsList);
+        scanner.nextLine();
 
         boolean isToasted = toast(scanner);
 
@@ -238,7 +238,6 @@ public class UserInterface {
                 3 - Mozzarella (melty and neutral — not traditional, but popular)
                 4 - Feta (crumbly, tangy, pairs well with pickles)""");
         System.out.print("What cheese would you like to add?");
-
         String cheeseChoice = "";
         boolean isExtra;
 
@@ -297,7 +296,7 @@ public class UserInterface {
         running = true;
 
         while(running) {
-            System.out.print("Would you to add a side? Y/N :");
+            System.out.print("Would you like to add a side? Y/N :");
             choice = scanner.nextLine().trim();
             if (choice.equalsIgnoreCase("y")) {
                 addSide(scanner,toppingsList);
@@ -324,7 +323,6 @@ public class UserInterface {
                 
                 Would you like to add a vegetable? Y/N""");
         String veggieChoice = "";
-        boolean isExtra;
 
         boolean running = true;
         while(running) {
@@ -395,18 +393,17 @@ public class UserInterface {
                 
                 What side would you like to add?""");
         String sideChoice = "";
-        boolean isExtra;
 
         boolean running = true;
         while(running) {
             String choice = scanner.nextLine().trim();
             switch (choice){
                 case "1" -> {
-                    sideChoice = "Pickles";
+                    sideChoice = "Tabbouleh";
                     System.out.println(sideChoice);
                 }
                 case "2" -> {
-                    sideChoice = "Tomatoes";
+                    sideChoice = "Hummus with pita";
                     System.out.println(sideChoice);
                 }
                 case "0" -> {
@@ -427,70 +424,64 @@ public class UserInterface {
     }
 
     private void selectSauces(Scanner scanner, List<Topping> toppingsList) {
-        {
-            System.out.println("""
-                Sauces selection:\s
-                1 - Toum (garlic sauce)
-                2 - Tahini sauce
-                3 - Garlic yogurt
-                4 - Spicy harissa
-                5 - Pomegranate molasses
-                6 - Sumac mayo – creamy, tangy, and slightly citrusy\s
-                Would you like to add a vegetable? Y/N""");
-            String sauceChoice = "";
-            boolean isExtra;
+        int i = 1;
+        System.out.println("Sauces selection: \n");
+        for (SauceType value : SauceType.values()) {
+            System.out.println(i++ + " - " + value);
+            }
+        System.out.println("0 - Skip\n" +
+                "What would you like to add?");
 
-            boolean running = true;
-            while(running) {
-                String choice = scanner.nextLine().trim();
-                switch (choice){
-                    case "1" -> {
+
+        String sauceChoice = "";
+        boolean running = true;
+        while(running) {
+
+            String choice = scanner.nextLine().trim();
+            switch (choice){
+                case "1" -> {
                         sauceChoice = "Toum";
                         System.out.println(sauceChoice);
-                    }
-                    case "2" -> {
+                }
+                case "2" -> {
                         sauceChoice = "Tahini sauce";
                         System.out.println(sauceChoice);
-                    }
-                    case "3" -> {
+                }
+                case "3" -> {
                         sauceChoice = "Garlic yogurt";
                         System.out.println(sauceChoice);
-                    }
-                    case "4" -> {
+                }
+                case "4" -> {
                         sauceChoice = "Spicy harissa";
                         System.out.println(sauceChoice);
-                    }case "5" -> {
+                }
+                case "5" -> {
                         sauceChoice = "Pomegranate molasses";
                         System.out.println(sauceChoice);
-                    }
-                    case "6" -> {
+                }
+                case "6" -> {
                         sauceChoice = "Sumac mayo";
                         System.out.println(sauceChoice);
-                    }
-
-                    case "0" -> {
+                }
+                case "0" -> {
                         running = false;
-                    }
-
-                    default -> System.out.println("Invalid option. Please enter 1,2 or 0.");
+                }
+                default -> System.out.println("Invalid option. Please enter 0-6.");
                 }
                 if (!sauceChoice.isEmpty()) {
 
-                    isExtra = askForExtra(scanner);
                     toppingsList.add(new Side(sauceChoice));
                     sauceChoice = "";
                     System.out.println("What other side would you like to add?");
                 }
             }
-
-        }
     }
 
     private boolean toast(Scanner scanner) {
         System.out.print("Would you like to toast it? Y/N");
         boolean isToasted = false;
 
-        String toasted = scanner.nextLine();
+        String toasted;
         boolean running = true;
         while(running){
             toasted = scanner.nextLine().trim();
@@ -620,6 +611,9 @@ public class UserInterface {
         System.out.println(order);
         System.out.println("1 - Confirm and checkout the order\n" +
                            "2 - Cancel the order");
+
+        OrderFileManager blabla = new OrderFileManager();
+        blabla.saveOrder(order);
 
     }
 

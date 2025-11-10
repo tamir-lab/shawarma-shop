@@ -1,10 +1,10 @@
 package com.pluralsight.shop.items;
 
+import com.pluralsight.shop.toppings.Protein;
 import com.pluralsight.shop.toppings.Topping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Shawarma {
@@ -51,29 +51,49 @@ public class Shawarma {
     public void setToppings(List<Topping> toppings) {
         this.toppings = toppings;
     }
-    public void addTopping(Topping topping) {
-        toppings.add(topping);
-    }
 
     @Override
     public String toString() {
-        String toastDisplay = isToasted ? " - Toasted": "";
-        List<String> toppingPrintable = toppings.stream()
+
+        String toastDisplay = isToasted() ? " - Toasted": " ";
+        List<String> toppingPrintable = getToppings().stream()
                 .map(Topping::toString).toList();
         String toppingString = toppingPrintable.stream().collect(Collectors.joining("\n• ", "• ", ""));
-        String printable = String.format("""
-                Shawarma
-                   Toppings:
-                %s
-                Subtotal: $%.2f
-
-                """, toppingString,getValue(size));
-        return "Shawarma " + size + " - " + breadType + toastDisplay + "\n" +
-                "Toppings:\n" + toppingString + getValue(size)
-                ;
+        //null issue
+        return String.format("""
+                        Shawarma %s -%s %s
+                           Toppings:
+                        %s
+                        $%.2f
+        
+                        """, getSize(),getBreadType(),toastDisplay,toppingString,getValue());
     }
 
-    public double getValue(String size) {
-        return 0;
+    public double getValue() {
+        double baseValue = 0;
+        switch (getSize()) {
+            case "small" -> {
+                baseValue = 5.50;
+            }
+            case "regular" -> {
+                baseValue = 7.00;
+            }
+            case "large" -> {
+                baseValue = 8.50;
+            }
+        }
+        double toppingValue = toppings.stream()
+                //getting the list of proteins
+                .filter(item -> item instanceof Protein)
+                .map(item -> (Protein) item)
+                .toList()
+                //getting the list of values for each protein
+                .stream().map(Protein::getValue).toList().stream()
+                //calculating the total for all values
+                .reduce((double) 0,
+                        (temp,num) -> temp += num);
+
+
+        return baseValue + toppingValue;
     }
 }

@@ -6,7 +6,6 @@ import com.pluralsight.shop.items.Shawarma;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Order {
@@ -79,7 +78,14 @@ public class Order {
 
     @Override
     public String toString() {
-        String shawarmaPrintable = "";
+        String shawarmaPrintable = shawarmaList.stream()
+                .map(Shawarma::toString)
+                .collect(Collectors.joining("\n")) +
+                "\nSubtotal: $" +
+                shawarmaList.stream()
+                        .map(Shawarma::getValue).toList().stream()
+                        .reduce((double) 0,
+                                (temp,num) -> temp += num);;
 
 
         String drinkPrintable = drinksList.stream()
@@ -109,15 +115,15 @@ public class Order {
 
                 ------------------------------------------
                 Subtotal:               $%.2f
-                Tax (5%%):              $%.2f
+                Tax (8.75%%):              $%.2f
                 ------------------------------------------
                 TOTAL:                  $%.2f
                 ------------------------------------------""",
-                shawarmaList,
+                shawarmaPrintable,
                 drinkPrintable,
                 friesPrintable,
                 getTotal(),
-                getTotal()/20,
+                getTotal()/0.0875,
                 getTotal()*1.05);
     }
 }

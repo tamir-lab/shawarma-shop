@@ -1,15 +1,25 @@
 package com.pluralsight.shop;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+
 
 public class OrderFileManager {
     public void saveOrder(Order order) {
-        String fileName = LocalDate.now() + "-" + LocalTime.now() + ".txt";
-        /*String receipt = String.format("""
+        String storeName = "DELICIOUS";
+        String address = "Main street";
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
+        String number = "123";
+
+
+        String fileName = "receipts/" + date + ".txt";
+        String receipt = String.format("""
                 ==========================================
                             %s
                           %s
@@ -17,34 +27,29 @@ public class OrderFileManager {
                 Order Date: %s   Time: %s
                 Receipt #: %s
                 ------------------------------------------
-
-
-
+                
+                %s
+                
+                
                 Thank you for choosing %s!
                 Your taste is as refined as your sandwich.
                 ==========================================
                 """,
+                storeName, address,
+                LocalDate.now(), LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
+                number,
+                order.toString(),
+                storeName
 
-        );*/
-        /*try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName)) ) {
-            bw.write(
-                    order.toString());
-            bw.newLine();
-            ArrayList<Vehicle> inventory = dealership.getAllVehicles();
-
-            for (Vehicle vehicle : inventory) {
-                bw.write(vehicle.getVin() + "|" +
-                        vehicle.getYear() + "|" +
-                        vehicle.getMake() + "|" +
-                        vehicle.getModel() + "|" +
-                        vehicle.getVehicleType() + "|" +
-                        vehicle.getColor() + "|" +
-                        vehicle.getOdometer() + "|" +
-                        vehicle.getPrice());
-                bw.newLine();
+        );
+        try {
+            new File("receipts").mkdirs();
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+                bw.write(receipt);
+                System.out.println("Order saved: " + fileName);
             }
-            System.out.println("Dealership saved.");
-        } catch (Exception e) {
-            throw new RuntimeException(e);*/
+        } catch (IOException e) {
+            System.err.println("Failed to save order: " + e.getMessage());
         }
+    }
 }
