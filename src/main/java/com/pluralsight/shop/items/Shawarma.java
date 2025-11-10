@@ -61,10 +61,10 @@ public class Shawarma {
         String toppingString = toppingPrintable.stream().collect(Collectors.joining("\n• ", "• ", ""));
         //null issue
         return String.format("""
-                        Shawarma %s -%s %s
+                        Shawarma %s - %s %s
                            Toppings:
-                        %s
-                        $%.2f
+                             %s
+                             $%.2f
         
                         """, getSize(),getBreadType(),toastDisplay,toppingString,getValue());
     }

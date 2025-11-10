@@ -524,14 +524,31 @@ public class UserInterface {
         System.out.println("Fries added to your order!");
     }
 
-    //TODO
     private void checkout(Scanner scanner, Order order) {
         System.out.println(order);
         System.out.println("1 - Confirm and checkout the order\n" +
                            "2 - Cancel the order");
-
-        OrderFileManager blabla = new OrderFileManager();
-        blabla.saveOrder(order);
+        String choice = scanner.nextLine();
+        boolean running = true;
+        while (running) {
+            if (choice.equalsIgnoreCase("1")){
+                if (!order.getShawarmaList().isEmpty() ||
+                        !order.getDrinksList().isEmpty() ||
+                    !order.getFriesList().isEmpty()){
+                    OrderFileManager orderFileManager = new OrderFileManager();
+                    orderFileManager.saveOrder(order);
+                    running = false;
+                }
+                else {
+                    System.out.println("Order can not be empty.");
+                break;}
+            } else if (choice.equalsIgnoreCase("2")) {
+                running  = false;
+            }
+            else {
+                System.out.println("Enter 1 or 2");
+            }
+        }
 
     }
 

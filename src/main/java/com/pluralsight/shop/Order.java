@@ -87,6 +87,9 @@ public class Order {
 
     @Override
     public String toString() {
+        if (!shawarmaList.isEmpty()) {
+
+        }
         String shawarmaPrintable = shawarmaList.stream()
                 .map(Shawarma::toString)
                 .collect(Collectors.joining("\n")) +
