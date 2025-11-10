@@ -1,7 +1,8 @@
 package com.pluralsight.shop.toppings;
 
 public enum SideType {
-    SKIP("Skip"), TABBOULEH("Tabbouleh"),HUMMUS_WITH_PITA("Hummus with pita") ;
+    SKIP("Skip"), AU_JUS("Au Jus"),
+    SAUCE("Sauce");
     private final String side;  // a place to store it
 
     SideType(String side) {

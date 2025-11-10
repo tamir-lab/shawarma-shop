@@ -175,105 +175,73 @@ public class UserInterface {
     }
 
     private void addMeat(Scanner scanner, List<Topping> toppingsList) {
-        System.out.println("""
-                Selection of meats:
-                1 - Chicken (classic marinated in garlic, lemon, and spices)
-                2 - Beef (thinly sliced, spiced, and roasted on a vertical spit)
-                3 - Lamb (juicy, tender, rich flavor — elite choice)
-                4 - Turkey (lighter, smoky variation)
-                5 - Veal (milder, buttery texture)""");
-        System.out.print("What meat would you like to add?");
 
+        System.out.println("Side selection:");
+        for (MeatType value : MeatType.values()) {
+            System.out.println(value.ordinal() + " - " + value.getMeat());
+        }
+        System.out.println("What side would you like to add? Enter a number");
         String meatChoice = "";
         boolean isExtra;
-
         boolean running = true;
-        while(running) {
-            String choice = scanner.nextLine().trim();
-            switch (choice){
-                case "1" -> {
-                    meatChoice = "Chicken";
-                    System.out.println(meatChoice);
-                    running = false;
+        while (running) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+                for (MeatType value : MeatType.values()) {
+                    if (choice == value.ordinal() &&
+                            choice != 0){
+                        meatChoice = value.getMeat();
+                        isExtra = askForExtra(scanner);
+                        toppingsList.add(new Meat(meatChoice,isExtra));
+                        System.out.print(value.ordinal() + " - ");
+                        System.out.println(meatChoice + " is added");
+                        running = false;
+                    }
                 }
-                case "2" -> {
-                    meatChoice = "Beef";
-                    System.out.println(meatChoice);
-                    running = false;
-                }
-                case "3" -> {
-                    meatChoice = "Lamb";
-                    System.out.println(meatChoice);
-                    running = false;
-                }
-                case "4" -> {
-                    meatChoice = "Turkey";
-                    System.out.println(meatChoice);
-                    running = false;
-                }
-                case "5" -> {
-                    meatChoice = "Veal";
-                    System.out.println(meatChoice);
-                    running = false;
-                }
-                case "" -> {
-                    running = false;
-                }
-
-                default -> System.out.println("Invalid option. Please enter 1,2,3,4 or 5.");
+                if (meatChoice.isEmpty()){
+                    if(choice == 0){
+                        break;
+                    } else {
+                        System.out.println("Side is not found.");}
+                    }
+            } catch (Exception e) {
+                System.out.println("Enter a number");
             }
+
         }
-
-        isExtra = askForExtra(scanner);
-        toppingsList.add(new Meat(meatChoice, isExtra));
-
     }
 
     private void addCheese(Scanner scanner, List<Topping> toppingsList) {
-        System.out.println("""
-                Selection of cheese:
-                1 - Akkawi (mild, creamy cheese)
-                2 - Halloumi (grilled, slightly salty, squeaky perfection)
-                3 - Mozzarella (melty and neutral — not traditional, but popular)
-                4 - Feta (crumbly, tangy, pairs well with pickles)""");
-        System.out.print("What cheese would you like to add?");
-        String cheeseChoice = "";
-        boolean isExtra;
 
-        boolean running = true;
-        while(running) {
-            String choice = scanner.nextLine().trim();
-            switch (choice){
-                case "1" -> {
-                    cheeseChoice = "Akkawi";
-                    System.out.println(cheeseChoice);
-                    running = false;
-                }
-                case "2" -> {
-                    cheeseChoice = "Halloumi";
-                    System.out.println(cheeseChoice);
-                    running = false;
-                }
-                case "3" -> {
-                    cheeseChoice = "Mozzarella";
-                    System.out.println(cheeseChoice);
-                    running = false;
-                }
-                case "4" -> {
-                    cheeseChoice = "Feta";
-                    System.out.println(cheeseChoice);
-                    running = false;
-                }
-                case "" -> {
-                    running = false;
-                }
-
-                default -> System.out.println("Invalid option. Please enter 1,2,3 or 4.");
-            }
+        System.out.println("Side selection:");
+        for (CheeseType value : CheeseType.values()) {
+            System.out.println(value.ordinal() + " - " + value.getCheese());
         }
+        System.out.println("What side would you like to add? Enter a number");
+        String cheeseChoice = "";
+        boolean running = true;
+        boolean isExtra;
+        while (running) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+                for (CheeseType value : CheeseType.values()) {
+                    if (choice == value.ordinal() &&
+                            choice != 0){
+                        cheeseChoice = value.getCheese();
+                        isExtra = askForExtra(scanner);
+                        toppingsList.add(new Cheese(cheeseChoice,isExtra));
+                        System.out.print(value.ordinal() + " - ");
+                        System.out.println(cheeseChoice + " is added");
+                        running = false;
+                    }
+                }
+                if (cheeseChoice.isEmpty()){
+                    System.out.println("Side is not found.");}
+            } catch (Exception e) {
+                System.out.println("Enter a number");
+            }
 
-        isExtra = askForExtra(scanner);
-        toppingsList.add(new Cheese(cheeseChoice, isExtra));
+        }
     }
     //non-protein toppings methods
     private void otherToppings(Scanner scanner, List<Topping> toppingsList) {
@@ -318,9 +286,10 @@ public class UserInterface {
             try {
                 int choice = Integer.parseInt(scanner.nextLine());
                 for (VegetableType value : VegetableType.values()) {
-                    if (choice == value.ordinal()){
+                    if (choice == value.ordinal() &&
+                            choice != 0){
                         vegetableChoice = value.getVegetable();
-                        toppingsList.add(new Side(vegetableChoice));
+                        toppingsList.add(new Vegetable(vegetableChoice));
                         System.out.print(value.ordinal() + " - ");
                         System.out.println(vegetableChoice + " is added");
                         running = false;
@@ -347,7 +316,8 @@ public class UserInterface {
             try {
                 int choice = Integer.parseInt(scanner.nextLine());
                 for (SideType value : SideType.values()) {
-                    if (choice == value.ordinal()){
+                    if (choice == value.ordinal() &&
+                        choice != 0){
                         sideChoice = value.getSide();
                         toppingsList.add(new Side(sideChoice));
                         System.out.print(value.ordinal() + " - ");
@@ -369,17 +339,18 @@ public class UserInterface {
         for (SauceType value : SauceType.values()) {
             System.out.println(value.ordinal() + " - " + value.getSauce());
         }
-
         System.out.println("What side would you like to add? Enter a number");
+
         String sauceChoice = "";
         boolean running = true;
         while (running) {
             try {
                 int choice = Integer.parseInt(scanner.nextLine());
                 for (SauceType value : SauceType.values()) {
-                    if (choice == value.ordinal()){
+                    if (choice == value.ordinal() &&
+                            choice != 0){
                         sauceChoice = value.getSauce();
-                        toppingsList.add(new Side(sauceChoice));
+                        toppingsList.add(new Sauce(sauceChoice));
                         System.out.print(value.ordinal() + " - ");
                         System.out.println(sauceChoice + " is added");
                         running = false;
@@ -390,9 +361,7 @@ public class UserInterface {
             } catch (Exception e) {
                 System.out.println("Enter a number");
             }
-
         }
-
     }
 
     private boolean toast(Scanner scanner) {
