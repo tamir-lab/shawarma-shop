@@ -88,7 +88,7 @@ public class Shawarma {
                 .map(item -> (Protein) item)
                 .toList()
                 //getting the list of values for each protein
-                .stream().map(Protein::getValue).toList().stream()
+                .stream().map(p -> p.getValue(getSize())).toList().stream()
                 //calculating the total for all values
                 .reduce((double) 0,
                         (temp,num) -> temp += num);

@@ -128,7 +128,6 @@ public class UserInterface {
     }
 
     private String selectShawarmaSize(Scanner scanner) {
-        //TODO size
         System.out.print("""
                 Size Selection
                 5 - Small
@@ -142,15 +141,15 @@ public class UserInterface {
             String choice = scanner.nextLine().trim();
             switch (choice) {
                 case "5" -> {
-                    size = "Small";
+                    size = "small";
                     running = false;
                 }
                 case "8" -> {
-                    size = "Regular";
+                    size = "regular";
                     running = false;
                 }
                 case "12" -> {
-                    size = "Large";
+                    size = "large";
                     running = false;
                 }
                 default -> System.out.println("Invalid option. Please enter 5,8 or 12");
@@ -308,173 +307,92 @@ public class UserInterface {
     }
 
     private void addRegularTopping(Scanner scanner, List<Topping> toppingsList) {
-        System.out.print("""
-                Regular topping/ veggie selection:\s
-                1 - Pickles (the sharper, the better)
-                2 - Tomatoes
-                3 - Lettuce
-                4 - Onions (sumac-marinated)
-                5 - Cabbage (shredded, adds crunch)
-                6 - Cucumber
-                7 - Parsley
-                8 - Turnip pickles (bright pink, iconic)
-                9 - Mint leaves (yes, inside the wrap — that’s the real deal)
-                0 - Continue to sides
-                
-                Would you like to add a vegetable? Y/N""");
-        String veggieChoice = "";
-
-        boolean running = true;
-        while(running) {
-            String choice = scanner.nextLine().trim();
-            switch (choice){
-                case "1" -> {
-                    veggieChoice = "Pickles";
-                    System.out.println(veggieChoice);
-                }
-                case "2" -> {
-                    veggieChoice = "Tomatoes";
-                    System.out.println(veggieChoice);
-                }
-                case "3" -> {
-                    veggieChoice = "Lettuce";
-                    System.out.println(veggieChoice);
-
-                }
-                case "4" -> {
-                    veggieChoice = "Onions";
-                    System.out.println(veggieChoice);
-
-                }
-                case "5" -> {
-                    veggieChoice = "Cabbage";
-                    System.out.println(veggieChoice);
-
-                }
-                case "6" -> {
-                    veggieChoice = "Cucumber";
-                    System.out.println(veggieChoice);
-
-                }
-                case "7" -> {
-                    veggieChoice = "Parsley";
-                    System.out.println(veggieChoice);
-
-                }case "8" -> {
-                    veggieChoice = "Turnip pickles";
-                    System.out.println(veggieChoice);
-
-                }case "9" -> {
-                    veggieChoice = "Mint leaves";
-                    System.out.println(veggieChoice);
-
-                }
-                case "0" -> {
-                    running = false;
-                }
-
-                default -> System.out.println("Invalid option. Please enter number from 0-9.");
-            }
-            if (!veggieChoice.isEmpty()) {
-                toppingsList.add(new Vegetable(veggieChoice));
-                veggieChoice = "";
-                System.out.println("What other veggie would you like to add?");
-            }
+        System.out.println("Regular topping/vegetable selection:");
+        for (VegetableType value : VegetableType.values()) {
+            System.out.println(value.ordinal() + " - " + value.getVegetable());
         }
+        System.out.println("What side would you like to add? Enter a number");
+        String vegetableChoice = "";
+        boolean running = true;
+        while (running) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+                for (VegetableType value : VegetableType.values()) {
+                    if (choice == value.ordinal()){
+                        vegetableChoice = value.getVegetable();
+                        toppingsList.add(new Side(vegetableChoice));
+                        System.out.print(value.ordinal() + " - ");
+                        System.out.println(vegetableChoice + " is added");
+                        running = false;
+                    }
+                }
+                if (vegetableChoice.isEmpty()){
+                    System.out.println("Side is not found.");}
+            } catch (Exception e) {
+                System.out.println("Enter a number");
+            }
 
+        }
     }
 
     private void addSide(Scanner scanner, List<Topping> toppingsList) {
-        System.out.print("""
-                Regular topping/ veggie selection:\s
-                1 - Tabbouleh (parsley salad with bulgur, tomatoes, and lemon)
-                2 - Hummus with pita
-                0 - Continue to sauces
-                
-                What side would you like to add?""");
-        String sideChoice = "";
-
-        boolean running = true;
-        while(running) {
-            String choice = scanner.nextLine().trim();
-            switch (choice){
-                case "1" -> {
-                    sideChoice = "Tabbouleh";
-                    System.out.println(sideChoice);
-                }
-                case "2" -> {
-                    sideChoice = "Hummus with pita";
-                    System.out.println(sideChoice);
-                }
-                case "0" -> {
-                    running = false;
-                }
-
-                default -> System.out.println("Invalid option. Please enter 1,2 or 0.");
-            }
-            if (!sideChoice.isEmpty()) {
-
-
-                toppingsList.add(new Side(sideChoice));
-                sideChoice = "";
-                System.out.println("What other side would you like to add?");
-            }
+        System.out.println("Side selection:");
+        for (SideType value : SideType.values()) {
+            System.out.println(value.ordinal() + " - " + value.getSide());
         }
+        System.out.println("What side would you like to add? Enter a number");
+        String sideChoice = "";
+        boolean running = true;
+        while (running) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+                for (SideType value : SideType.values()) {
+                    if (choice == value.ordinal()){
+                        sideChoice = value.getSide();
+                        toppingsList.add(new Side(sideChoice));
+                        System.out.print(value.ordinal() + " - ");
+                        System.out.println(sideChoice + " is added");
+                        running = false;
+                    }
+                }
+                if (sideChoice.isEmpty()){
+                    System.out.println("Side is not found.");}
+            } catch (Exception e) {
+                System.out.println("Enter a number");
+            }
 
+        }
     }
 
     private void selectSauces(Scanner scanner, List<Topping> toppingsList) {
-        int i = 1;
-        System.out.println("Sauces selection: \n");
+        System.out.println("Sauce selection:");
         for (SauceType value : SauceType.values()) {
-            System.out.println(i++ + " - " + value);
-            }
-        System.out.println("0 - Skip\n" +
-                "What would you like to add?");
+            System.out.println(value.ordinal() + " - " + value.getSauce());
+        }
 
-
+        System.out.println("What side would you like to add? Enter a number");
         String sauceChoice = "";
         boolean running = true;
-        while(running) {
-
-            String choice = scanner.nextLine().trim();
-            switch (choice){
-                case "1" -> {
-                        sauceChoice = "Toum";
-                        System.out.println(sauceChoice);
-                }
-                case "2" -> {
-                        sauceChoice = "Tahini sauce";
-                        System.out.println(sauceChoice);
-                }
-                case "3" -> {
-                        sauceChoice = "Garlic yogurt";
-                        System.out.println(sauceChoice);
-                }
-                case "4" -> {
-                        sauceChoice = "Spicy harissa";
-                        System.out.println(sauceChoice);
-                }
-                case "5" -> {
-                        sauceChoice = "Pomegranate molasses";
-                        System.out.println(sauceChoice);
-                }
-                case "6" -> {
-                        sauceChoice = "Sumac mayo";
-                        System.out.println(sauceChoice);
-                }
-                case "0" -> {
+        while (running) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+                for (SauceType value : SauceType.values()) {
+                    if (choice == value.ordinal()){
+                        sauceChoice = value.getSauce();
+                        toppingsList.add(new Side(sauceChoice));
+                        System.out.print(value.ordinal() + " - ");
+                        System.out.println(sauceChoice + " is added");
                         running = false;
+                    }
                 }
-                default -> System.out.println("Invalid option. Please enter 0-6.");
-                }
-                if (!sauceChoice.isEmpty()) {
-
-                    toppingsList.add(new Side(sauceChoice));
-                    sauceChoice = "";
-                    System.out.println("What other side would you like to add?");
-                }
+                if (sauceChoice.isEmpty()){
+                    System.out.println("Side is not found.");}
+            } catch (Exception e) {
+                System.out.println("Enter a number");
             }
+
+        }
+
     }
 
     private boolean toast(Scanner scanner) {
@@ -633,10 +551,7 @@ public class UserInterface {
         }
         return isExtra;
     }
-
     }
-
-
 
 
 
