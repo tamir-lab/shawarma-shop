@@ -1,15 +1,15 @@
 package com.pluralsight.shop.toppings.regular;
 
 public enum VegetableType {
-    SKIP("Skip"),LETTUCE("Lettuce"),
-    PEPPERS("Peppers"),
-    ONIONS("Onions"),
+    SKIP("Skip"),PICKLES("Pickles"),
     TOMATOES("Tomatoes"),
-    JALAPENOS("Jalapeños"),
-    CUCUMBERS("Cucumbers"),
-    PICKLES("Pickles"),
-    GUACAMOLE("Guacamole"),
-    MUSHROOMS("Mushrooms");
+    LETTUCE("Lettuce"),
+    ONIONS("Onions (raw or sumac-marinated)"),
+    CABBAGE("Cabbage"),
+    CUCUMBER("Cucumber"),
+    PARSLEY("Parsley"),
+    TURNIP_PICKLES("Turnip Pickles"),
+    MINT_LEAVES("Mint Leaves");
     private final String vegetable;  // a place to store it
 
     VegetableType(String vegetable) {

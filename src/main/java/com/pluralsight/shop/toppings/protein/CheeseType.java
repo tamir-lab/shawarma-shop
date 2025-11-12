@@ -1,10 +1,10 @@
 package com.pluralsight.shop.toppings.protein;
 
 public enum CheeseType {
-    SKIP("Skip"),AMERICAN("American"),
-    PROVOLONE("Provolone"),
-    CHEDDAR("Cheddar"),
-    SWISS("Swiss");
+    SKIP("Skip"),AKKAWI("Akkawi"),
+    HALLOUMI("Halloumi"),
+    MOZZARELLA("Mozzarella"),
+    FETA("Feta");
     private final String side;  // a place to store it
 
     CheeseType(String side) {

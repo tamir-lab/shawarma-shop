@@ -1,12 +1,12 @@
 package com.pluralsight.shop.toppings.regular;
 
 public enum SauceType {
-    SKIP("Skip"),MAYO("Mayo"),
-    MUSTARD("Mustard"),
-    KETCHUP("Ketchup"),
-    RANCH("Ranch"),
-    THOUSAND_ISLANDS("Thousand Islands"),
-    VINAIGRETTE("Vinaigrette"),;
+    SKIP("Skip"),TOUM("Toum (Garlic Sauce)"),
+    TAHINI("Tahini Sauce"),
+    GARLIC_YOGURT("Garlic Yogurt"),
+    HARISSA("Spicy Harissa"),
+    POMEGRANATE_MOLASSES("Pomegranate Molasses"),
+    SUMAC_MAYO("Sumac Mayo");
 
     private final String sauce;  // a place to store it
 
