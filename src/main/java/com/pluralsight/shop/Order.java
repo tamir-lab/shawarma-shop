@@ -75,14 +75,17 @@ public class Order {
     public double getTotal() {
         double total = 0;
         double shawarmaTotal = shawarmaList.stream()
-                .map(Shawarma::getValue).toList()
-                .stream().reduce((double) 0,(temp,num) -> temp += num);
+                .mapToDouble(Shawarma::getValue)
+                .sum();
         double drinkTotal = drinksList.stream()
-                .map(Drink::getValue).toList()
-                .stream().reduce((double) 0,(temp,num) -> temp += num);
+                .mapToDouble(Drink::getValue)
+                .sum();
         double friesTotal = friesList.size() * 1.5;
         total = shawarmaTotal+drinkTotal+friesTotal;
         return total;
+    }
+    public void saveOrder() {
+        new OrderFileManager().saveOrder(this);
     }
 
     @Override

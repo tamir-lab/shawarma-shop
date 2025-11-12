@@ -66,14 +66,14 @@ public class UserInterface {
     public void addShawarma(Scanner scanner, Order order) {
 
         Shawarma shawarma = new Shawarma("","", false);
+
         shawarma.setBreadType(selectBread(scanner));
         shawarma.setSize(selectShawarmaSize(scanner));
-        shawarma.setToasted(toast(scanner));
-
         addAllMeats(scanner, shawarma);
         addCheese(scanner, shawarma);
         otherToppings(scanner, shawarma);
         selectSauces(scanner, shawarma);
+        shawarma.setToasted(toast(scanner));
 
         order.addShawarma(shawarma);
 
@@ -373,10 +373,10 @@ public class UserInterface {
     private String addDrinkKind(Scanner scanner) {
         System.out.println("""
                 Flavor selection:
-                t - tea
-                s - soda
-                w - water
-                What flavor would you like?""");
+                T - Tea
+                S - Soda
+                W - Water
+                What beverage would you like?""");
 
         String kind = "";
         boolean running = true;
@@ -397,9 +397,9 @@ public class UserInterface {
     private String addDrinkSize(Scanner scanner) {
         System.out.println("""
                 What size would you like for the drink?
-                s - small
-                m - medium
-                l - large""");
+                S - Small
+                M - Medium
+                L - Large""");
 
         String size = "";
         boolean running = true;
@@ -442,7 +442,8 @@ public class UserInterface {
 
     private void checkout(Scanner scanner, Order order) {
         System.out.println(order);
-        System.out.println("1 - Confirm and checkout the order\n2 - Cancel the order");
+        System.out.println("1 - Confirm and checkout the order" +
+                           "\n2 - Cancel the order");
 
         boolean running = true;
         while (running) {
@@ -451,8 +452,7 @@ public class UserInterface {
                 if (!order.getShawarmaList().isEmpty() ||
                         !order.getDrinksList().isEmpty() ||
                         !order.getFriesList().isEmpty()) {
-                    OrderFileManager orderFileManager = new OrderFileManager();
-                    orderFileManager.saveOrder(order);
+                    order.saveOrder();
                     running = false;
                 } else {
                     System.out.println("Order cannot be empty.");

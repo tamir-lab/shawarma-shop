@@ -46,6 +46,7 @@ public class OrderFileManager {
             new File("receipts").mkdirs();
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
                 bw.write(receipt);
+                bw.flush();
                 System.out.println("Order saved: " + fileName);
             }
         } catch (IOException e) {
