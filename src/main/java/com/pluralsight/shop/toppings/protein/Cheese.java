@@ -1,6 +1,6 @@
 package com.pluralsight.shop.toppings.protein;
 
-public class Cheese extends Protein {
+public class Cheese extends Protein{
 
     public Cheese(String kind, boolean isExtra) {
         super(kind, isExtra);
@@ -36,4 +36,3 @@ public class Cheese extends Protein {
     }
 
 }
-
