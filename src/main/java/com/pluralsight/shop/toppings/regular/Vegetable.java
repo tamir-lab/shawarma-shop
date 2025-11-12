@@ -1,4 +1,6 @@
-package com.pluralsight.shop.toppings;
+package com.pluralsight.shop.toppings.regular;
+
+import com.pluralsight.shop.toppings.Topping;
 
 public class Vegetable extends Topping {
 
@@ -6,5 +8,3 @@ public class Vegetable extends Topping {
         super(kind);
     }
 }
-
-

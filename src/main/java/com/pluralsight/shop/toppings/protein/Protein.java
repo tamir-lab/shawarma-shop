@@ -1,6 +1,8 @@
-package com.pluralsight.shop.toppings;
+package com.pluralsight.shop.toppings.protein;
 
-public abstract class Protein extends Topping{
+import com.pluralsight.shop.toppings.Topping;
+
+public abstract class Protein extends Topping {
     private boolean isExtra;
 
     public Protein(String kind, boolean isExtra) {
@@ -16,7 +18,7 @@ public abstract class Protein extends Topping{
         isExtra = extra;
     }
 
-    public abstract double getValue();
+    public abstract double getValue(String size);
 
     @Override
     public String toString() {

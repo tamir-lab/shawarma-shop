@@ -1,6 +1,6 @@
 package com.pluralsight.shop.items;
 
-import com.pluralsight.shop.toppings.Protein;
+import com.pluralsight.shop.toppings.protein.Protein;
 import com.pluralsight.shop.toppings.Topping;
 
 import java.util.ArrayList;
@@ -48,6 +48,15 @@ public class Shawarma {
         return toppings;
     }
 
+    public void addTopping(Topping topping) {
+        if (topping == null) {
+            throw new IllegalArgumentException("Topping cannot be null");
+        }
+            toppings.add(topping);
+    }
+
+
+
     public void setToppings(List<Topping> toppings) {
         this.toppings = toppings;
     }
@@ -61,10 +70,10 @@ public class Shawarma {
         String toppingString = toppingPrintable.stream().collect(Collectors.joining("\n• ", "• ", ""));
         //null issue
         return String.format("""
-                        Shawarma %s -%s %s
+                        Shawarma %s - %s %s
                            Toppings:
-                        %s
-                        $%.2f
+                             %s
+                             $%.2f
         
                         """, getSize(),getBreadType(),toastDisplay,toppingString,getValue());
     }
@@ -88,7 +97,7 @@ public class Shawarma {
                 .map(item -> (Protein) item)
                 .toList()
                 //getting the list of values for each protein
-                .stream().map(Protein::getValue).toList().stream()
+                .stream().map(p -> p.getValue(getSize())).toList().stream()
                 //calculating the total for all values
                 .reduce((double) 0,
                         (temp,num) -> temp += num);

@@ -73,11 +73,23 @@ public class Order {
         friesList.add(fries);
     }
     public double getTotal() {
-        return 11;
+        double total = 0;
+        double shawarmaTotal = shawarmaList.stream()
+                .map(Shawarma::getValue).toList()
+                .stream().reduce((double) 0,(temp,num) -> temp += num);
+        double drinkTotal = drinksList.stream()
+                .map(Drink::getValue).toList()
+                .stream().reduce((double) 0,(temp,num) -> temp += num);
+        double friesTotal = friesList.size() * 1.5;
+        total = shawarmaTotal+drinkTotal+friesTotal;
+        return total;
     }
 
     @Override
     public String toString() {
+        if (!shawarmaList.isEmpty()) {
+
+        }
         String shawarmaPrintable = shawarmaList.stream()
                 .map(Shawarma::toString)
                 .collect(Collectors.joining("\n")) +
@@ -123,8 +135,7 @@ public class Order {
                 drinkPrintable,
                 friesPrintable,
                 getTotal(),
-                getTotal()/0.0875,
-                getTotal()*1.05);
+                getTotal()*0.0875,
+                getTotal()*1.0875);
     }
 }
-
