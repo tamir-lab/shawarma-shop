@@ -2,18 +2,18 @@
 
 ## Description of the Project
 
-This Java console application simulates the point-of-sales system for DELI-cious, a custom sandwich shop. The program allows customers to build fully customized sandwiches, add drinks and chips, manage their orders, review the total cost, and generate receipt files.
+This Java console application simulates the point-of-sales system a custom shawarma shop. The program allows customers to build fully customized shawarmas, add drinks and fries, manage their orders, review the total cost, and generate receipt files.
 
 It is designed for employees and trainees who need an efficient way to take orders without relying on handwritten notes. The application automates ordering, ensures accuracy, and organizes order data for easier workflow management.
 
 ![Class Diagram](Simplified%20diagram%20for%20Shawarma%20Shop.png)
 ## User Stories
 
-As a customer, I want to customize my sandwich, so that I can order exactly what I like.
+As a customer, I want to customize my shawarma, so that I can order exactly what I like.
 
 As a customer, I want to select bread, size, toppings, sauces, and extras, so that my sandwich is prepared correctly.
 
-As a user, I want to add drinks and chips, so that my order is complete.
+As a user, I want to add drinks and fries, so that my order is complete.
 
 As a cashier, I want the system to display order details, so that I can verify everything with the customer before checkout.
 
