@@ -71,9 +71,9 @@ public class Shawarma {
         //null issue
         return String.format("""
                         Shawarma %s - %s %s
-                           Toppings:
-                             %s
-                             $%.2f
+                        Toppings:
+                        %s
+                        $%.2f
         
                         """, getSize(),getBreadType(),toastDisplay,toppingString,getValue());
     }

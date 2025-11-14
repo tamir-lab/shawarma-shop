@@ -84,6 +84,13 @@ public class Order {
         total = shawarmaTotal+drinkTotal+friesTotal;
         return total;
     }
+    public void clear() {
+        shawarmaList.clear();
+        drinksList.clear();
+        friesList.clear();
+        orderName = "";
+        orderDate = "";
+    }
     public void saveOrder() {
         new OrderFileManager().saveOrder(this);
     }

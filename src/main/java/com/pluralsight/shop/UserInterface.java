@@ -459,6 +459,7 @@ public class UserInterface {
                     break;
                 }
             } else if (choice.equalsIgnoreCase("2")) {
+                order.clear();
                 running = false;
             } else {
                 System.out.println("Enter 1 or 2.");

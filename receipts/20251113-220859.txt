@@ -1,0 +1,46 @@
+==========================================
+            DELICIOUS
+          Main street
+------------------------------------------
+Order Date: 2025-11-13   Time: 22:08:59
+Receipt #: 123
+------------------------------------------
+
+ Items:
+Shawarma small - Pita Bread  - Toasted
+   Toppings:
+   • Beef (extra)
+
+• Lamb (extra)
+
+• Mozzarella (extra)
+
+• Tomatoes
+
+• Hummus with Pita
+
+• Garlic Yogurt
+
+     $9.55
+
+
+Subtotal: $9.55
+
+
+Subtotal: $0.0
+
+Fries x0
+Subtotal: $0.0
+
+
+------------------------------------------
+Subtotal:               $9.55
+Tax (8.75%):              $0.84
+------------------------------------------
+TOTAL:                  $10.39
+------------------------------------------
+
+
+Thank you for choosing DELICIOUS!
+Your taste is as refined as your sandwich.
+==========================================
